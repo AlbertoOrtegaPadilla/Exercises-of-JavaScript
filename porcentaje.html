@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style>
+		div{
+			height:50px;
+			width: 1200px;
+			border:1px solid black;
+		}
+		#dentroBarra{
+			width:0px;
+			height:50px;
+			position: absolute;
+		}
+	</style>
+
+    <script>
+      var intervalo;
+    	var tiempo;
+    	var color;
+    	var ancho=0;
+
+    	function barra(){
+        //se agrega los input a las variables
+        longitud=document.getElementById('l').value;
+    		tiempo=document.getElementById("t").value;
+    		color=document.getElementById("c").value;
+        //se añade el color al span dentroBarra
+    		document.getElementById("dentroBarra").style.background=color;
+        //este intervalo crea el ancho y el progreso de la barra que estipulas tu en color
+    		intervalo=setInterval(function(){
+
+    			if(ancho<longitud){
+    				ancho++;
+    				document.getElementById("dentroBarra").style.width= ancho + "px";
+            // toFixed() limita los decimales, en este caso a 2
+    				document.getElementById("dimension").innerHTML=(ancho*100/1200).toFixed(2) +"%";
+    				}else{
+    				clearInterval(intervalo);
+    			}
+    		},tiempo);
+    	}
+	</script>
+  </head>
+  <body>
+    <b>Longitud: </b><input type="text" id="l"><b>"max 1200"</b><br><br>
+    <b>Tiempo X pixel: </b><input type="text" id="t"><br><br>
+    <input type="color" name="favcolor" value="#ff0000" id="c"><br><br>
+    <input type="button" onclick=barra() value="ENVIAR">
+
+    <div id="barra"><span id="dentroBarra"></span></div>
+    <p id="dimension">0%</p>
+  </body>
+</html>

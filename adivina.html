@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <title></title>
+      <script>
+        var aleatorio;
+        var cuenta;
+        var intentos;
+        var intervalo;
+
+        function iniciar(){
+            aleatorio = Math.floor((Math.random()*10)+1);
+            console.log(aleatorio);
+            document.getElementById('resultado').innerHTML=" ";
+            cuenta = 20;
+            intentos = 0;
+            intervalo = setInterval(function(){
+              if (cuenta > 0){
+                  document.getElementById('block').disabled=false;
+                  document.getElementById('go').disabled=true;
+                  document.getElementById('tiempo').innerHTML=cuenta;
+                  document.getElementById('intentos').innerHTML=intentos;
+                  cuenta --;
+                }else {
+                    document.getElementById('tiempo').innerHTML=cuenta;
+                    document.getElementById('resultado').innerHTML="¡HAS PERDIDO!";
+                    document.getElementById('block').disabled=true;
+                    document.getElementById('go').disabled=false;
+                    clearInterval(intervalo);
+                  }
+            },1000);
+        }
+
+        function comprobar(){
+          var numero = document.getElementById("numero").value;
+          if(aleatorio == numero){
+            document.getElementById('resultado').innerHTML="¡ACERTASTE!";
+            document.getElementById('go').disabled=false;
+            clearInterval(intervalo);
+          }else{
+            document.getElementById('resultado').innerHTML="¡SIGUE INTENTANDOLO!";
+            intentos++;
+            }
+        }
+      </script>
+  </head>
+  <body>
+      <input type="button" onclick=iniciar() value="EMPEZAR" id ="go"><br><br>
+      <b>Introduce aqui el numero: </b><input type="number" id="numero">
+      <input type="button" onclick=comprobar() value="OK" id="block"><br><br>
+
+      RESULTADO: <h3 id="resultado"></h3>
+      INTENTOS:<h3 id="intentos"></h3>
+      TIEMPO RESTANTE: <h1 id="tiempo"></h1>
+  </body>
+</html>

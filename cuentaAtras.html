@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+      <meta charset="UTF-8">
+      <title></title>
+      <script>
+        function iniciar(){
+          var cuenta = document.getElementById("segundos").value;
+          var intervalo = setInterval(function(){
+              if (cuenta >= 0){
+                  document.getElementById('miCuenta').innerHTML=cuenta;
+                  cuenta --;
+                }else clearInterval(intervalo);
+            },500);
+        }
+      </script>
+  </head>
+  <body>
+      <b>Segundos: </b><input type="number" id="segundos"><br><br>
+      <input type="button" onclick=iniciar() value="ENVIAR">
+      <div id="miCuenta"></div>
+  </body>
+</html>
