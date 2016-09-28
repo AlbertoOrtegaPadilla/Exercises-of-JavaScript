@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style>
+      #exterior{
+        width: 500px;
+        height: 500px;
+        background: yellow;
+        position: relative;
+      }
+
+      #interior{
+        width: 50px;
+        height: 50px;
+        background-color: red;
+        position: absolute;
+      }
+    </style>
+    <script>
+      var cubo;
+      var x, y;
+      var isanimated = false;
+      function clic() {
+        //isanimated sirve para cuando empieza la animacion, no se pueda resetear ni aparecer otra.
+        if(!isanimated){
+          var elem = document.getElementById("interior");
+          x=0;
+          y=0;
+          isanimated = true;
+          cubo = setInterval(function(){
+            if (x==0&&y==1) {
+              isanimated = false;
+              clearInterval(cubo);
+            } else if((x<450)&&(y==0)){
+              x++;
+              elem.style.left = x + 'px';
+            } else if((x==450)&&(y<450)){
+              y++;
+              elem.style.top = y + 'px';
+            } else if((x>0)&&(y==450)){
+              x--;
+               elem.style.left = x + 'px';
+            }else if((x==0)&&(y>0)){
+              y--;
+               elem.style.top = y + 'px';
+            }
+          }, 1);
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="clic()">GO</button><br><br>
+    <div id="exterior">
+      <div id="interior"></div>
+    </div>
+  </body>
+</html>
