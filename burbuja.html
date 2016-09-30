@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style>
+      #contenedor{
+        width: 600px;
+        height: 600px;
+        position: relative;
+      }
+      .burbuja{
+        position: absolute;
+        border-radius: 50%;
+      }
+    </style>
+
+    <script>
+      //contador para mas adelante dar un numero a la bola.
+      var contador_capaid = 0;
+
+      //Crea cada bolita
+      function crearBurbuja(){
+
+      		//Crea nueva capa div.
+      		var bola = document.createElement("div");
+
+          //Aplicamos caracteristcas a la capas clase , estilos, id y atributos
+
+      		bola.className = "burbuja";//le asigno una clase
+
+      		//posicion aleatoria
+      		var superior = Math.floor(Math.random()*600);
+      		bola.style.top = superior+"px";
+
+      		var izda = Math.floor(Math.random()*800);
+      		bola.style.left = izda+"px";
+
+      		//Tamaño aleatorio ancho y alto iguales
+      		var tamano = Math.floor(Math.random()*100) + 10;
+      		bola.style.width = tamano + "px";
+      		bola.style.height = tamano + "px";
+
+      		//Color aleatorio
+      		var coloraleatorio = "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")";
+      		bola.style.backgroundColor=coloraleatorio;
+
+      		//Le asigno un valor=0 que usare para
+      		//contador interno
+      		bola.value = 0;
+
+      		//Asignamos un nuevo id a la nueva capa
+      		contador_capaid ++;
+      		bola.id = "capa" + contador_capaid;
+
+      		//Le asigno el onclick a la funcion eliminar burbuja
+          bola.setAttribute("onclick","eliminaburbuja(this)");
+
+      		//Lo añado al contenedor div contenedor que crea un hijo que es bola(burbuja), es la creacion de la burbuja en pantalla
+      	  document.getElementById("contenedor").appendChild(bola);
+      }
+
+      //Elimina la capa que se lo pasa como this
+      function eliminaburbuja(bb){
+          console.log("capa a eliminar=" + bb.id);
+          //this es el objeto al que le he hecho onclick
+          //borramos que es this removechild(this)
+          bb.parentNode.removeChild(bb);
+      }
+
+      function limpiar(){
+          var todascapas= document.querySelectorAll(".burbuja");
+
+          for (var i=0;i<todascapas.length;i++){
+            todascapas[i].parentNode.removeChild(todascapas[i]);
+          }
+      }
+    </script>
+
+  </head>
+  <body>
+    <button id="boton" onclick="crearBurbuja()">Crear</button>
+    <button id="limpia" onclick="limpiar()">Limpiar</button>
+    <div id="contenedor"></div>
+  </body>
+</html>

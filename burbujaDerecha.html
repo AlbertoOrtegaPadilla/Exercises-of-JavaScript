@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+      #contenedor{
+        width: 600px;
+        height: 600px;
+        position: relative;
+      }
+      .burbuja{
+        position: absolute;
+        border-radius: 50%;
+      }
+    </style>
+    <script>
+
+    var contador_capaid = 0;
+    var bola;
+    var i;
+    var x;
+    var derecha;
+
+        function crear(){
+          i = 0;
+          var intervalo = setInterval(function () {
+              bola = document.createElement("div");
+              bola.className = "burbuja";
+
+              //Tamaño aleatorio ancho y alto iguales
+          		var tamano = Math.floor(Math.random()*100) + 10;
+          		bola.style.width = tamano + "px";
+          		bola.style.height = tamano + "px";
+
+              //posicion aleatoria
+          		var superior = Math.floor(Math.random()*500);
+          		bola.style.top = superior+"px";
+
+              var izda = Math.floor(Math.random()*500);
+          		bola.style.left = izda+"px";
+
+              //Color aleatorio
+          		var coloraleatorio = "rgb(" + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + "," + Math.floor(Math.random()*255) + ")";
+          		bola.style.backgroundColor=coloraleatorio;
+
+              //Le asigno un valor=0 que usare para
+          		//contador interno
+          		bola.value = 0;
+
+          		//Asignamos un nuevo id a la nueva capa
+          		contador_capaid ++;
+          		bola.id = "capa" + contador_capaid;
+            bola.setAttribute("ondblclick","eliminaburbuja(this)");
+            document.getElementById("contenedor").appendChild(bola);
+            i++;
+
+            if(i==50) clearInterval(intervalo);
+          }, 80);
+
+        }
+
+        function eliminaburbuja(micapita){
+              console.log("capa a eliminar=" + micapita.id);
+              var izquierda;
+                derecha = setInterval(function(){
+                  izquierda = micapita.offsetLeft;
+                  if (izquierda >= 500) {
+                    micapita.parentNode.removeChild(micapita);
+                    //clearInterval(derecha);
+
+                  } else if(izquierda < 500){
+
+                    micapita.style.left = (izquierda + 1) + 'px';
+                  }
+                }, 20);
+
+          }
+
+          function limpiar(){
+              var todascapas= document.querySelectorAll(".burbuja");
+
+              for (var i=0;i<todascapas.length;i++){
+                todascapas[i].parentNode.removeChild(todascapas[i]);
+              }
+          }
+
+    </script>
+  </head>
+  <body>
+    <button id="boton" onclick="crear()">Crear</button>
+    <button id="limpia" onclick="limpiar()">Limpiar</button>
+    <div id="contenedor"></div>
+  </body>
+</html>
