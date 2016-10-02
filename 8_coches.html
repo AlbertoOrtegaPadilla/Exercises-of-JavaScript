@@ -2,10 +2,14 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Carrera de coches</title>
     <style>
       body{
         background-color: black;
+      }
+      .linea{
+        position: absolute;
+        z-index: -1;
       }
       #circuito{
         height:500px;
@@ -14,10 +18,6 @@
       }
       #coche1,#coche2,#coche3,#coche4,#coche5,#coche6{
         position: absolute;
-      }
-      .linea{
-        position: absolute;
-        z-index: -1;
       }
       #apuesta1{
         position: absolute;
@@ -72,67 +72,58 @@
       var numero = 1;
       var coches = [];
       function generarCoches(){
+        //aqui hacemos visibles e invisibles los inpunt, botonoes, etc...
         document.getElementById("start").style.visibility="hidden";document.getElementById("go").style.visibility="visible";
         document.getElementById("apuesta").style.visibility="visible";document.getElementById("apuesta1").style.visibility="visible";
         document.getElementById("ha").style.visibility="visible";document.getElementById("hb").style.visibility="visible";
 
         for (var i=0;i<6;i++){
-          var coche = document.getElementById("coche" + numero);
-          //Posicion coche
-          coche.style.left = 50 + "px";
-          coche.style.top = (80 + posicion) + "px";
-          //Imagen edificio
-          coche.setAttribute("src","IMG/coche" + numero + ".png");
-          //Crear edificio
-          document.getElementById("circuito").appendChild(coche);
+          var coche = document.getElementById("coche" + numero);//crea variable de la Imagen coche+ numero
+          coche.style.left = 50 + "px";//Posicion coche
+          coche.style.top = (80 + posicion) + "px";//Posicion coche
+          coche.setAttribute("src","IMG/coche" + numero + ".png");//Imagen coche
+          document.getElementById("circuito").appendChild(coche);//visualiza coche
           coches[i]=coche;
           posicion = posicion + 80;
           numero ++;
         }
         lineaSalidaMeta();
       }
-
       var lineas = [];
       function lineaSalidaMeta() {
         posicion = 0;
         numero = 1;
         for (var i=0;i<2;i++){
-          var bandera = document.createElement("img");
-          bandera.className="linea";
-          //Posicion lineaSa
-          bandera.style.left = (172 + posicion)+ "px";
-          bandera.style.top = 20 + "px";
-          //Imagen lineaSa
-          bandera.setAttribute("src","IMG/bandera" + numero + ".png");
-          //Crear lineaSa
-          document.getElementById("circuito").appendChild(bandera);
+          var bandera = document.createElement("img");//crea una imagen
+          bandera.className="linea";//crea la clase linea por el absolute y el index-1
+          bandera.style.left = (172 + posicion)+ "px";//Posicion bandera
+          bandera.style.top = 20 + "px";//Posicion bandera
+          bandera.setAttribute("src","IMG/bandera" + numero + ".png");//Imagen bandera
+          document.getElementById("circuito").appendChild(bandera);//visualiza bandera
           bandera[i]=bandera;
           posicion = 900;
           numero++;
         }
         posicion = 0;
         for (var i=0;i<2;i++){
-          var linea = document.createElement("img");
-          linea.className="linea";
-          //Posicion lineaSa
-          linea.style.left = (200 + posicion)+ "px";
-          linea.style.top = 85 + "px";
-          //Imagen lineaSa
-          linea.setAttribute("src","IMG/linea.png");
-          //Crear lineaSa
-          document.getElementById("circuito").appendChild(linea);
+          var linea = document.createElement("img");//crea una Imagen
+          linea.className="linea";//crea la clase linea
+          linea.style.left = (200 + posicion)+ "px";//Posicion lineaSa
+          linea.style.top = 85 + "px";//Posicion lineaSa
+          linea.setAttribute("src","IMG/linea.png");//Imagen lineaSa
+          document.getElementById("circuito").appendChild(linea);//visualiza lineaSa
           lineas[i]=linea;
           posicion = 900;
         }
       }
-
+      //se mueven los coches
       function go(){
         document.getElementById("go").style.visibility="hidden";
         document.getElementById("ha").style.visibility="hidden";document.getElementById("hb").style.visibility="hidden";
         document.getElementById("apuesta").style.visibility="hidden";document.getElementById("apuesta1").style.visibility="hidden";
         var a1 = document.getElementById("coche1");var a2 = document.getElementById("coche2");var a3 = document.getElementById("coche3");
         var a4 = document.getElementById("coche4");var a5 = document.getElementById("coche5");var a6 = document.getElementById("coche6");
-
+        //creo 6 intervalos que le dara velocidades aleatorias y desplazamiento hacia la derecha.
         var salida1 = setInterval(function(){
           for (var i = 0; i < 6; i++) {
               if (a1.offsetLeft >= 1150) {
