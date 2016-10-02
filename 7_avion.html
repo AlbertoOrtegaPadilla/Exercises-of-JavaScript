@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style>
+      body,#suelo{
+        background-color: black;
+      }
+
+      .boton{
+            text-align:center;
+            text-decoration: none;
+            font-family: cursive;
+            display:inline-block;
+            color: #FFF;
+            background: #7F8C8D;
+            padding: 15px 40px;
+            white-space: nowrap;
+            margin: 10px 5px;
+            border-radius: 50%;
+      }
+
+      .azul{
+        background: #3498DB;
+        border: 1px solid #2980B9;
+      }
+
+      .azul:hover{
+        background: #39a0e5;
+      }
+
+      #suelo{
+        height:500px;
+        width:1333px;
+        position: relative;
+      }
+
+      #avion{
+        position: absolute;
+
+      }
+
+      .edifi{
+    		position: absolute;
+
+    	}
+
+      .bomba{
+    		position:absolute;
+    	}
+
+      .boom{
+    		position:absolute;
+    	}
+
+    </style>
+
+    <script>
+      var av;
+      var derecha;
+      var comprobar;
+      var posicion;
+      function avion(){
+
+        av = document.getElementById("avion");
+        x = av.offsetLeft;
+          derecha = setInterval(function(){
+            //izquierda = avion.offsetLeft;
+            if (av.offsetLeft >= 1350) {
+              av.style.left = -150 + 'px';
+
+            } else if(av.offsetLeft < 1350){
+              av.style.left = (av.offsetLeft + 1) + 'px';
+            }
+          }, 4);
+          edifalt();
+
+      }
+      var edif = [];
+      function edifalt(){
+        var edificios = random(2,5);
+    		for (var i=0;i<edificios;i++){
+    			var edificio = document.createElement("img");
+    			edificio.className="edifi";
+    			//Posicion edificio
+    			var Posicion = random(100,1000);
+    			edificio.style.left= Posicion + "px";
+          edificio.style.top=450+"px";
+    			//Imagen edificio
+    			edificio.setAttribute("src","IMG/edificio.png");
+    			//Crear edificio
+    			document.getElementById("suelo").appendChild(edificio);
+          edif[i]=edificio;
+    		}
+
+        /*comprobar = setInterval(function(){
+          for (var i = 0; i < edificios; i++) {
+              for (var z = 0; z < edificios; z++) {
+                if ((edif[i].offsetLeft>=edif[z].offsetLeft)||(edif[i].offsetLeft<edif[z].offsetLeft+50)) {
+                  edif[i].parentNode.removeChild(edif[i]);
+                }
+              }
+          }
+          clearInterval(comprobar);
+        });*/
+      }
+
+      function lanzarBomba(){
+    			var bomba = document.createElement("img");
+    			bomba.className="bomba";
+    			//Posicion bomba
+    			var pos = av.offsetLeft;
+    			bomba.style.left= pos + "px";
+    			//Imagen bomba
+    			bomba.setAttribute("src","IMG/bomba.png");
+    			//Crear bomba
+    			document.getElementById("suelo").appendChild(bomba);
+    			//Momvimiento bomba
+    			var inter = setInterval(function (){
+    				if(bomba.offsetTop==520){
+    						for (var i = 0;i < edif.length;i++){
+    							if((bomba.offsetLeft>=edif[i].offsetLeft)&&(bomba.offsetLeft<edif[i].offsetLeft+70)){
+    								edif[i].parentNode.removeChild(edif[i]);
+    							}
+    						}
+                boom(bomba);
+                bomba.parentNode.removeChild(bomba);
+                clearInterval(inter);
+    				}else {
+              bomba.style.top = (bomba.offsetTop+1) + 'px';
+            }
+    			},1);
+      }
+
+      function boom(bomba){
+    		var boom = document.createElement("img");
+    		boom.setAttribute("src","IMG/boom.png");
+    		boom.style.left=(bomba.offsetLeft-40)+"px";
+    		boom.style.top=(bomba.offsetTop-50)+"px";
+    		boom.className="boom";
+    		document.getElementById("suelo").appendChild(boom);
+    		var intervalo=setInterval(function(){
+    			boom.parentNode.removeChild(boom);
+    			clearInterval(intervalo);
+    		},300);
+    	}
+
+      function random(min, max){
+    		return Math.floor((Math.random()*max)+min);
+    	}
+      //<img src="IMG/apuntar.png" alt="" id="apuntar" />
+      //<img src="IMG/edificio.png" alt="" id="edificio"/>
+      //<img src="IMG/casa.png" alt="" id="casa"/>
+    </script>
+
+  </head>
+  <body>
+
+    <button class="boton azul" onclick="avion()">Crear</button>
+    <div id="suelo">
+      <div>
+        <img src="IMG/avion.png" onclick="lanzarBomba(this)" id = "avion"/>
+      </div>
+    </div>
+
+
+  </body>
+</html>
