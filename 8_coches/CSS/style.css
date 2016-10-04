@@ -1,0 +1,116 @@
+body{
+  background-color: black;
+}
+.linea{
+  position: absolute;
+  z-index: -1;
+}
+#tabla {
+  width: 550px;
+  height: 604px;
+  left: 26%;
+  position: absolute;
+  margin-top: 27px;
+  background-color: maroon;
+  padding-left: 57px;
+  border-radius: 15%;
+  visibility: hidden;
+}
+#circuito{
+  height:500px;
+  width:1333px;
+  position: relative;
+}
+#titulo{
+  position: absolute;
+  height: 400px;
+  width: 400px;
+  color: black;
+}
+#clasificacion{
+  position: absolute;
+  height: 400px;
+  width: 400px;
+  color: black;
+  left: 79px;
+}
+#resultado{
+  position: absolute;
+  left: 400px;
+  top: 150px;
+  color: black;
+}
+#dinero{
+  position: absolute;
+  left: 400px;
+  top: 250px;
+  color: black;
+}
+#coche1,#coche2,#coche3,#coche4,#coche5,#coche6{
+  position: absolute;
+}
+#apuesta{
+  background-color: #ac33ff;
+  border-color: black;
+  width: 80px;
+  height: 40px;
+  position: absolute;
+  left: 62%;
+  top: 46%;
+  visibility:hidden;
+  border-radius: 50%;
+}
+.cochecito{
+  position: relative;
+  width: 64px;
+  height: 64px;
+  left: 12px;
+  top: 25px;
+}
+#apuesta1{
+  position: absolute;
+  background-color: #ac33ff;
+  left: 50%;
+  top: 47.8%;
+  visibility:hidden;
+}
+#ha{
+  position: absolute;
+  color: #ac33ff;
+  left: 35%;
+  top: 35%;
+  visibility:hidden;
+}
+#hb{
+  position: absolute;
+  color: #ac33ff;
+  left: 52%;
+  top: 35%;
+  visibility:hidden;
+}
+#nCoche{
+  position: absolute;
+  background-color: #ac33ff;
+  left: 34%;
+  top: 45%;
+  visibility:hidden;
+}
+#start{
+  position: absolute;
+  width: 90px;
+  height: 50px;
+  left: 45%;
+  top: 45%;
+  border-radius: 50%;
+}
+#go{
+  background-color: #ac33ff;
+  border-color: black;
+  width: 80px;
+  height: 40px;
+  position: absolute;
+  left: 44%;
+  top: 70%;
+  visibility:hidden;
+  border-radius: 50%;
+}
