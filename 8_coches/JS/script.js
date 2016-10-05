@@ -101,9 +101,9 @@ function resultado(){
     }else if (document.getElementById("apuesta1").value == 0){
         document.getElementById("dinero").innerHTML = "<strong>SALDO: </strong> " + dinero + "€";
       }else if (dinero == 0){
-          document.getElementById("dinero2").innerHTML = "<strong>TE QUEDASTE SIN DINERO.</strong> ";
+          document.getElementById("dinero").innerHTML = "<strong>TE QUEDASTE SIN DINERO.</strong> ";
         }else {
-          document.getElementById("dinero2").innerHTML = "<strong>SALDO: </strong> " + dinero + "€";
+          document.getElementById("dinero").innerHTML = "<strong>SALDO:</strong> " + dinero + "€";
         }
   }
 }
@@ -142,7 +142,7 @@ function apuesta(){
       dinero -= parseInt(document.getElementById("apuesta1").value);
       cocheApostado = "coche" + document.getElementById("coches").value;
   }else if (dinero <= parseInt(document.getElementById("apuesta1").value)) {
-      document.getElementById("dinero2").innerHTML = "<strong>NO PUEDES APOSTAR MAS QUE TU SALDO:" + dinero
+      document.getElementById("dinero").innerHTML = "<strong>NO PUEDES APOSTAR MAS QUE TU SALDO:" + dinero
       + "€ Y HAS APOSTADO: " + document.getElementById("apuesta1").value + "€</strong>";
   }else {
       document.getElementById("dinero").innerHTML = "<strong>SALDO: </strong> " + dinero + "€";
