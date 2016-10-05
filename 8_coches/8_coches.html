@@ -11,19 +11,20 @@
       <button id="start" onclick="generarCoches()">EMPEZAR</button>
       <h3 id="ha">Nº COCHE</h3>
       <p id="nCoche">
-          <strong>Apuesta por:</strong>
+          <strong>Coche nº:</strong>
           <select id="coches">
           </select>
       </p>
       <h3 id="hb">APUESTA</h3>
-      <input type="number" name="name" value="" id="apuesta1">
+      <input type="number" min="1" name="name" value="" id="apuesta1">
       <button onclick="apuesta()" id="apuesta">Apostar</button>
       <button id="go" onclick="go()">GO</button>
       <div id="tabla">
         <h3 id="titulo">CLASIFICACION:</h3><br>
-        <p id="clasificacion"></p>
         <h3 id="resultado"></h3>
-        <p id="dinero"></p>
+        <p id="dinero"></p><p id="dinero2"></p>
+        <button type="button" onclick="reiniciar()" id="otra">REPETIR</button>
+        <button type="button" onclick="resetear()" id="reset">RESET</button>
       </div>
     </div>
   </body>

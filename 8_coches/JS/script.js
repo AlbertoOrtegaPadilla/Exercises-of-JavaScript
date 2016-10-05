@@ -8,6 +8,11 @@ var coches = [];
 var clasificacion = [];
 function generarCoches(){
   document.getElementById("go").disabled = true;
+  var saldo = document.createElement("h3");
+  saldo.id="tituloD";
+  document.getElementById("circuito").appendChild(saldo);
+  document.getElementById("tituloD").innerHTML = "<strong>Saldo: </strong> " + dinero + "€";
+  document.getElementById("tituloD").style.visibility="visible";
   //aqui hacemos visibles e invisibles los inpunt, botonoes, etc...
   document.getElementById("apuesta").style.visibility="visible";
   document.getElementById("start").style.visibility="hidden";document.getElementById("go").style.visibility="visible";
@@ -63,36 +68,51 @@ function go(){
 }
 //se mueven los coches
 function correr(coche){
+  document.getElementById("tituloD").style.visibility="hidden";
   //coche es la variable enviada en la function go() que envia todos los id de coches.
   console.log(coche);
   //creo el intervalo que le dara velocidades aleatorias y desplazamiento hacia la derecha a los coches id de go();
   var salida = [];
+  var primero = 0;
   salida[coche.value] = setInterval(function(){
         if (coche.offsetLeft <= 1150) {
-            coche.style.left = (coche.offsetLeft + Math.floor(Math.random()*6)) + 'px';
+            coche.style.left = (coche.offsetLeft + 10) + 'px';
           }else {
               clearInterval(salida[coche.value]);
               clasificacion[clasificado] = coche.id;
               clasificado++;
-              console.log(clasificacion);
+              primero++;
+              //console.log(clasificacion);
               mostrarClasificacion(clasificacion[clasificado - 1]);
-              var ganado = parseInt(document.getElementById("apuesta1").value) * 2;
-              if (cocheApostado == clasificacion[0] && document.getElementById("apuesta1").value != 0) {
-                  //Ha ganado la apuesta
-                  dinero += ganado;
-                  document.getElementById("dinero").innerHTML = "<strong>Dinero Acumulado:</strong> " + dinero + "€";
-              }else if (document.getElementById("apuesta1").value == 0){
-                  document.getElementById("dinero").innerHTML = "<strong>Dinero Acumulado:</strong> " + dinero + "€";
-                }else{
-                document.getElementById("dinero").innerHTML = "<strong>Dinero Acumulado:</strong> " + dinero + "€";
+              if (clasificado == 1) {
+                  resultado();
               }
             }
-  },Math.floor(Math.random()*30));
+  },Math.floor((Math.random()*20)+10));
+}
+
+function resultado(){
+
+  if (dinero >= parseInt(document.getElementById("apuesta1").value) || dinero == 0) {
+    if (cocheApostado == clasificacion[0] && document.getElementById("apuesta1").value != 0) {
+        //Ha ganado la apuesta
+        dinero += parseInt(document.getElementById("apuesta1").value) * 2;
+        document.getElementById("dinero").innerHTML = "<strong>SALDO: </strong> " + dinero + "€";
+    }else if (document.getElementById("apuesta1").value == 0){
+        document.getElementById("dinero").innerHTML = "<strong>SALDO: </strong> " + dinero + "€";
+      }else if (dinero == 0){
+          document.getElementById("dinero2").innerHTML = "<strong>TE QUEDASTE SIN DINERO.</strong> ";
+        }else {
+          document.getElementById("dinero2").innerHTML = "<strong>SALDO: </strong> " + dinero + "€";
+        }
+  }
 }
 function mostrarClasificacion(i){
+  //creo p para despues eliminarlos en reiniciar y volver a crearlos en la opcion de mostrarClasificacion de la partida.
+  var clasis = document.createElement("p");
+  clasis.id="clasificacion";
+  document.getElementById("tabla").appendChild(clasis);
   numeroCoche = document.getElementById("nCoche");
-  console.log(numeroCoche);
-  var c = 0;
   //console.log(i)
   // si quieres imprimir text en vez de img = document.getElementById("clasificacionP").innerHTML
   document.getElementById("clasificacion").innerHTML += "<h3>" + clasificado + ". <img src=\"" + document.getElementById(i).src
@@ -100,6 +120,13 @@ function mostrarClasificacion(i){
 
   if (clasificado == 6) {
     document.getElementById("tabla").style.visibility="visible";
+    if (dinero == 0) {
+      document.getElementById("otra").style.visibility="hidden"
+      document.getElementById("reset").style.visibility="visible";
+    }else {
+      document.getElementById("otra").style.visibility="visible";
+      document.getElementById("reset").style.visibility="visible";
+    }
   }
 }
 function cochesEnApuesta() {
@@ -114,8 +141,38 @@ function apuesta(){
   if (dinero >= parseInt(document.getElementById("apuesta1").value)) {
       dinero -= parseInt(document.getElementById("apuesta1").value);
       cocheApostado = "coche" + document.getElementById("coches").value;
-      console.log(dinero)
+  }else if (dinero <= parseInt(document.getElementById("apuesta1").value)) {
+      document.getElementById("dinero2").innerHTML = "<strong>NO PUEDES APOSTAR MAS QUE TU SALDO:" + dinero
+      + "€ Y HAS APOSTADO: " + document.getElementById("apuesta1").value + "€</strong>";
+  }else {
+      document.getElementById("dinero").innerHTML = "<strong>SALDO: </strong> " + dinero + "€";
   }
+}
+//Para seguir jugando.
+function reiniciar() {
+    document.getElementById("otra").style.visibility="hidden";
+    document.getElementById("reset").style.visibility="hidden";
+    //Borra todos los coches
+    for(var i = 1; i <= 6; i++){
+        var coche = "coche" + i;
+        document.getElementById(coche).parentNode.removeChild(document.getElementById(coche));
+        //var coche = document.getElementById(clasificacion[i]);
+        //coche.parentNode.removeChild(coche);
+    }
+    var clas = document.getElementById("clasificacion");
+    clas.parentNode.removeChild(clas);
+    document.getElementById("tabla").style.visibility="hidden";
+    //document.getElementById("otra").style.visibility="hidden";
+    document.getElementById("start").style.visibility="visible";
+    clasificacion =[];
+    clasificado = 0;
+    posicion= 0;
+    numero = 1;
+}
+
+function resetear() {
+    dinero = 500;
+    reiniciar();
 }
 function random(min, max){
   return Math.floor((Math.random()*max)+min);

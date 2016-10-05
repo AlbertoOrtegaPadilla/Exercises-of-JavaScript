@@ -42,9 +42,21 @@ body{
 }
 #dinero{
   position: absolute;
-  left: 400px;
+  left: 435px;
   top: 250px;
   color: black;
+}
+#dinero2{
+  position: absolute;
+  left: 300px;
+  top: 250px;
+  color: black;
+}
+#tituloD{
+  position: absolute;
+  left: 691px;
+  top: 276px;
+  color: #ac33ff;
 }
 #coche1,#coche2,#coche3,#coche4,#coche5,#coche6{
   position: absolute;
@@ -102,6 +114,30 @@ body{
   left: 45%;
   top: 45%;
   border-radius: 50%;
+}
+#otra {
+    background-color: #ac33ff;
+    border-color: black;
+    width: 80px;
+    height: 40px;
+    position: absolute;
+    left: 73%;
+    top: 29%;
+    visibility: hidden;
+    border-radius: 50%;
+    color: black;
+}
+#reset {
+    background-color: #ac33ff;
+    border-color: black;
+    width: 80px;
+    height: 40px;
+    position: absolute;
+    left: 73%;
+    top: 19%;
+    visibility: hidden;
+    border-radius: 50%;
+    color: black;
 }
 #go{
   background-color: #ac33ff;
